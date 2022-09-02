@@ -8,14 +8,23 @@
       Hostelite API
     </p>
   </div>
-  <div class="flex justify-center items-center">
-    {% load static %}
-    <img src="{% static 'room.png' %}" alt="" />
-  </div>
   <div class="pt-6">
     <p class="text-white text-2xl font-medium flex justify-center">
       One place to manage all the paperwork you have in a hostel
     </p>
+  </div>
+  <div class="flex justify-center items-center">
+    {% load static %}
+    <img src="{% static 'room.png' %}" alt="" />
+  </div>
+  <div class="flex justify-center items-center pt-6">
+    <a
+      href="/api/swagger/"
+      style="background-color: #64ffda"
+      class="font-bold shadow-md hover:shadow-xl transition duration-300 shadow-cyan-500 rounded-lg p-3 bg-blue-400 hover:bg-blue-600 flex justrify-center items-center"
+    >
+      Swagger UI
+    </a>
   </div>
 </div>
 {% endblock %}
