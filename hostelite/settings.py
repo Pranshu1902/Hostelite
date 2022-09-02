@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'drf_spectacular_sidecar',
+    'django_heroku',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +164,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # custom user model class registration
 # AUTH_PROFILE_MODULE = "hostel.User"
+
+import django_heroku
+django_heroku.settings(locals())
