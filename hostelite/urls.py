@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from django.conf import settings
 from rest_framework.authtoken import views
-
+from hostel.views import HomePageView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 from hostel.apiViews import ComplaintViewSet, HealthReportViewSet, LeaveRequestViewSet, RoomCleaningViewSet
@@ -37,6 +37,6 @@ urlpatterns = [
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
     path('api-token-auth/', views.obtain_auth_token),
-
+    path('', HomePageView.as_view()),
     path('admin/', admin.site.urls),
 ] + router.urls + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
