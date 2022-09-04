@@ -1,6 +1,8 @@
 from .models import *
+from rest_framework.views import APIView
 from rest_framework.serializers import ModelSerializer
 from rest_framework import viewsets
+from rest_framework.response import Response
 
 class LeaveRequestSerializer(ModelSerializer):
     class Meta:
@@ -46,6 +48,18 @@ class RoomCleaningSerializer(ModelSerializer):
         attrs['user'] = self.context['request'].user
         return attrs
 
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'password']
+
+    # sign up new user
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = super().create(validated_data)
+        user.set_password(password)
+        user.save()
+        return user
 
 class LeaveRequestViewSet(viewsets.ModelViewSet):
     queryset = LeaveRequest.objects.all()
@@ -74,3 +88,14 @@ class RoomCleaningViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return RoomCleaning.objects.filter(user=self.request.user)
+
+class APIUserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+# get logged in user's details
+class CurrentUserView(APIView):
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)

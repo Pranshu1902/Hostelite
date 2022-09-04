@@ -22,7 +22,7 @@ from rest_framework.authtoken import views
 from hostel.views import HomePageView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
-from hostel.apiViews import ComplaintViewSet, HealthReportViewSet, LeaveRequestViewSet, RoomCleaningViewSet
+from hostel.apiViews import APIUserViewSet, ComplaintViewSet, CurrentUserView, HealthReportViewSet, LeaveRequestViewSet, RoomCleaningViewSet
 
 router = routers.SimpleRouter(trailing_slash=True)
 
@@ -30,12 +30,13 @@ router.register("leave", LeaveRequestViewSet, basename="Leave request")
 router.register("complaint", ComplaintViewSet, basename="Complaint")
 router.register("health", HealthReportViewSet, basename="health report")
 router.register("cleaning", RoomCleaningViewSet, basename="room cleaning")
+router.register("user", APIUserViewSet, basename="user")
 
 urlpatterns = [
     path('api/', SpectacularAPIView.as_view(), name="schema"),
     path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-
+    path('api/user/', CurrentUserView.as_view(), name="user"),
     path('api-token-auth/', views.obtain_auth_token),
     path('', HomePageView.as_view()),
     path('admin/', admin.site.urls),
