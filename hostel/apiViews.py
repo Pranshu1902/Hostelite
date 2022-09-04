@@ -29,7 +29,7 @@ class ComplaintSerializer(ModelSerializer):
 class HealthReportSerializer(ModelSerializer):
     class Meta:
         model = HealthReport
-        fields = ['reportee', 'date']
+        fields = ['reportee', 'description', 'date']
         read_only_fields = ['repoter']
     
     # automatically assign the user to the book

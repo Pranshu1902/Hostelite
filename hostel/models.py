@@ -9,20 +9,21 @@ from django.contrib.auth.models import User
 class LeaveRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     reason = models.CharField(max_length=3000)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(auto_now_add=True)
+    end_date = models.DateField(auto_now_add=True)
     visiting_place = models.CharField(max_length=100)
 
 class Complaint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     complaint = models.CharField(max_length=3000)
-    expected_time = models.DateTimeField()
+    expected_time = models.DateTimeField(auto_now_add=True)
 
 class HealthReport(models.Model):
     reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reporter")
     reportee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reportee")
-    date = models.DateTimeField()
+    description = models.CharField(max_length=3000, null=True)
+    date = models.DateTimeField(auto_now_add=True)
 
 class RoomCleaning(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    time = models.TimeField()
+    time = models.TimeField(auto_now_add=True)
